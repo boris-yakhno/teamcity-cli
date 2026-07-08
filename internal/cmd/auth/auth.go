@@ -23,6 +23,8 @@ See: https://www.jetbrains.com/help/teamcity/managing-your-user-account.html#Man
 	cmd.AddCommand(newAuthLoginCmd(f))
 	cmd.AddCommand(newAuthLogoutCmd(f))
 	cmd.AddCommand(newAuthStatusCmd(f))
+	cmd.AddCommand(newAuthStoreCmd(f))
+	cmd.AddCommand(newAuthTokenCmd(f))
 
 	return cmd
 }

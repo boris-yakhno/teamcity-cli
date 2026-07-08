@@ -249,8 +249,18 @@ func SetServer(serverURL, token, user string) error {
 }
 
 func SetServerWithKeyring(serverURL, token, user, tokenExpiry string, insecureStorage bool) (insecureFallback bool, err error) {
+	return setServerWithKeyring(serverURL, token, user, tokenExpiry, insecureStorage, true)
+}
+
+func StoreServerWithKeyring(serverURL, token, user, tokenExpiry string, insecureStorage bool) (insecureFallback bool, err error) {
+	return setServerWithKeyring(serverURL, token, user, tokenExpiry, insecureStorage, false)
+}
+
+func setServerWithKeyring(serverURL, token, user, tokenExpiry string, insecureStorage bool, updateDefault bool) (insecureFallback bool, err error) {
 	serverURL = NormalizeURL(serverURL)
-	cfg.DefaultServer = serverURL
+	if updateDefault {
+		cfg.DefaultServer = serverURL
+	}
 
 	if !insecureStorage {
 		if krErr := keyringSet(keyringService(serverURL), user, token); krErr == nil {
